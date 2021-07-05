@@ -45,12 +45,13 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 ChatBot::ChatBot(ChatBot &&source){  //move constructor
-    std::cout << "MOVING (c’tor) instance " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot Move constructor"<< std::endl;
         _image = source._image;
         _currentNode = source._currentNode;
         _rootNode = source._rootNode;
         _chatLogic = source._chatLogic;
         
+
         source._image = nullptr;
         source._currentNode = nullptr;
         source._rootNode = nullptr;
@@ -101,9 +102,11 @@ ChatBot &ChatBot::operator=(ChatBot &&source){//move assignment operator
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
     _currentNode = source._currentNode;
-    delete _image;
-    _image = source._image;
+    delete _image;  //deallocate heap memory 
+    _image = source._image;  
    
+    _chatLogic->SetChatbotHandle(this);  //IMPORTANT FOR DE ALLOCATION
+  
      source._image = NULL;
     source._currentNode = nullptr;
     source._chatLogic = nullptr;
